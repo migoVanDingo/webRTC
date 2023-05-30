@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import ForgotPassword from "./pages/ForgotPassword";
-import Chatroom from "./pages/Chatroom";
+import Chatroom from "./pages/Chatroom/Chatroom";
 import styled from "styled-components";
 import AuthProvider from "./context/AuthContext";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -11,6 +11,7 @@ import Homepage from "./pages/Homepage";
 import Header from "./components/common/Header";
 import PrivateRoute from "./components/authentication/PrivateRoute";
 import FencedRoute from "./components/authentication/FencedRoute";
+import { connectWithSocketIOServer } from "./util/wss";
 
 
 const SBody = styled.div`
@@ -24,6 +25,11 @@ const SBody = styled.div`
 `;
 
 function App() {
+
+  useEffect(() => {
+    connectWithSocketIOServer()
+  }, [])
+
   return (
     <Router>
       <AuthProvider>

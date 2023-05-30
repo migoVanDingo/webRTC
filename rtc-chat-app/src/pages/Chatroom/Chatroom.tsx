@@ -2,10 +2,26 @@ import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import ReactPlayer from 'react-player'
 import { useLocation } from 'react-router-dom';
-import { SFlexCol } from '../components/styled/container.styled'
+import { SFlexCol } from '../../components/styled/container.styled'
+import * as WebRTCHandler from '../../util/webRtcHandler';
+import { connect } from 'react-redux';
 
 const SPageContainer = styled(SFlexCol)`
   background-color: #1f1f1f;  
+  display: grid;
+  grid-template-columns: 300px auto 300px;
+`
+
+const SParticipantContainer = styled(SFlexCol)`
+  border: 1px solid red;
+  width: 100%;
+  height: calc(100vh - 60px);
+`
+
+const SChatContainer = styled.div`
+  border: 1px solid blue;
+  width: 100%;
+  height: calc(100vh - 60px);
 `
 
 const SContainer = styled.div`
@@ -15,7 +31,7 @@ const SContainer = styled.div`
 `
 
 const SVideoContainer = styled.div`
-  width: 1280px;
+  width: 100%;
   height: 100%;
 
 
@@ -44,17 +60,18 @@ const SPlayer = styled(ReactPlayer)`
 
 `
 
-export default function Chatroom() {
+const Chatroom = ({ roomId }: any) => {
   const location = useLocation()
   console.log(location.state)
 
   const localVideoRef = useRef()
 
 
+  console.log("roomId: " + roomId)
   useEffect(() => {
 
     const getMediaStream = async () => {
-
+      WebRTCHandler.initRoomConnection(true, 'migo', '1234')
 
     }
 
@@ -64,6 +81,10 @@ export default function Chatroom() {
 
   return (
     <SPageContainer>
+
+
+      <SParticipantContainer />
+
       <SContainer>
         <SVideoContainer>
           <SVideoContainer className="self-view">
@@ -73,7 +94,17 @@ export default function Chatroom() {
           <SPlayer height="100%" width="100%" url={""} />
         </SVideoContainer>
       </SContainer>
+
+      <SChatContainer/>
     </SPageContainer>
 
   )
 }
+
+const mapStoreStateToProps = (state: any) => {
+  return {
+    ...state
+  }
+}
+
+export default connect(mapStoreStateToProps)(Chatroom)
