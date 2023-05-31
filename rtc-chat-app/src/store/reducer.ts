@@ -10,6 +10,7 @@ const initState = {
 };
 
 const reducer = (state:any = initState, action: any) => {
+  console.log("action: " , action.type)
   switch (action.type) {
     case ACTIONS.SET_IS_ROOM_HOST:
       return {

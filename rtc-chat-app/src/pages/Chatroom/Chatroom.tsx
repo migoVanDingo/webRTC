@@ -4,7 +4,7 @@ import ReactPlayer from 'react-player'
 import { useLocation } from 'react-router-dom';
 import { SFlexCol } from '../../components/styled/container.styled'
 import * as WebRTCHandler from '../../util/webRtcHandler';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { setIsRoomHost } from '../../store/actions';
 
 const SPageContainer = styled(SFlexCol)`
@@ -61,11 +61,13 @@ const SPlayer = styled(ReactPlayer)`
 
 `
 
-const Chatroom = (props: any) => {
+const Chatroom = () => {
 
-  const { roomId, identity, isRoomHost, showOverlay } = props
-  console.log('props: ', props)
-console.log("id: " , identity) 
+  const identity = useSelector((state: any) => state.reducer.identity)
+  const roomId = useSelector((state: any) => state.reducer.roomId)
+  
+  console.log("chatroom identity: " , identity) 
+console.log("chatroom roomId: " , roomId) 
   useEffect(() => {
 
     const getMediaStream = async () => {
@@ -107,20 +109,6 @@ console.log("id: " , identity)
   )
 }
 
-const mapStoreStateToProps = (state: any) => {
-  console.log(state)
-  return {
-    roomId: state.reducer.roomId,
-    identity: state.reducer.identity,
-    isRoomHost: state.reducer.isRoomHost,
-    showOverlay: state.reducer.showOverlay
-  }
-}
 
-/* const mapActionsToProps = (dispatch: any) => {
-  return{
-    setIsRoomHostAction: (isRoomHost: any) => dispatch(setIsRoomHost(isRoomHost))
-  }
-} */
 
-export default connect(mapStoreStateToProps)(Chatroom)
+export default Chatroom

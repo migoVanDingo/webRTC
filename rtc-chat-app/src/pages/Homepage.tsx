@@ -4,9 +4,10 @@ import { useAuth } from '../context/AuthContext'
 import { useNavigate } from "react-router"
 import JoinMeeting from '../components/meeting/JoinMeeting'
 import JoinOrHost from '../components/meeting/JoinOrHost'
-import { connect } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import { setIdentity } from '../store/actions'
 import { store } from '../store/store'
+import { ACTIONS } from '../store/actions'
 
 
 const SBody = styled.div`
@@ -17,19 +18,23 @@ const SBody = styled.div`
 `
 
 
-const Homepage = (props: any) => {
+const Homepage = () => {
 
-    const { setIdentityAction, identity } = props
+    const identity = useSelector((state: any) => state.reducer.identity)
+    const roomId = useSelector((state: any) => state.reducer.roomId)
+    const state = useSelector((state: any) => state)
+    //const dispatch = useDispatch()
+    //const { setIdentityAction, identity } = props
     const [meetingType, setMeetingType] = useState<string>('')
     const [content, setContent] = useState<any>('')
 
-    const { currentUser } = useAuth()
+    //const { currentUser } = useAuth()
 
-   console.log("ident: ",identity)
+   
 
-    useEffect(() => {
-        setIdentityAction(currentUser.uid)
-    },[])
+/*     useEffect(() => {
+        dispatch({ type:"SET_IDENTITY", identity: currentUser.uid})
+    },[]) */
 
     useEffect(() => {
         const createContent = () => {
@@ -57,6 +62,9 @@ const Homepage = (props: any) => {
 
 
 
+    console.log('home -- id: ', identity)
+    console.log('home -- roomId: ', roomId)
+    console.log('home -- state: ', state)
 
     return (
         <SBody>
@@ -65,7 +73,7 @@ const Homepage = (props: any) => {
     )
 }
 
-const mapActionsToProps = (dispatch: any) => {
+/* const mapActionsToProps = (dispatch: any) => {
     return {
       setIdentityAction: (identity: any) => dispatch(setIdentity(identity)),
     };
@@ -80,5 +88,5 @@ const mapStoreStateToProps = (state: any) => {
       showOverlay: state.reducer.showOverlay
     }
   }
-
-export default connect(mapStoreStateToProps, mapActionsToProps)(Homepage)
+ */
+export default Homepage
