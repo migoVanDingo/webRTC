@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { SFlexCol } from '../styled/container.styled'
+import { createNewRoom } from '../../util/wss'
+import { useSelector } from 'react-redux'
 
 
 const SJoinForm = styled(SFlexCol)`
@@ -66,8 +68,12 @@ const SJoinButton = styled.button`
 
 export default function JoinOrHost({ setMeetingType }: any) {
 
+   /*  const identity = useSelector((state: any) => state.reducer.identity)
+    const roomId = useSelector((state: any) => state.reducer.roomId) */
+
+
     const handleClick = (e: any) => {
-        console.log(e.target.className)
+        
         if (e.target.className.includes("join-meeting")) {
             setMeetingType('JOIN')
         } else {
@@ -75,6 +81,7 @@ export default function JoinOrHost({ setMeetingType }: any) {
         }
 
     }
+
     return (
         <SJoinForm>
             <SFormHeading >MigoChat</SFormHeading>

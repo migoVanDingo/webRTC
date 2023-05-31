@@ -1,5 +1,5 @@
 import * as Wss from './wss'
-import { store } from '../store/store'
+import store from '../store/store'
 
 
 const defaultContraints = {

@@ -22,7 +22,6 @@ export const ACTIONS = {
   };
   
   export const setIdentity = (identity: any) => {
-    console.log(identity)
     return {
       type: ACTIONS.SET_IDENTITY,
       identity,

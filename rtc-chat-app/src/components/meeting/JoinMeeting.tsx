@@ -100,16 +100,4 @@ function JoinMeeting({ setIsRoomHostAction }: any) {
 }
 
 
-const mapStoreStateToProps = (state: any) => {
-    return {
-        ...state
-    }
-}
-
-const mapActionsToProps = (dispatch: any) => {
-    return {
-        setIsRoomHostAction: (isRoomHost: any) => dispatch(setIsRoomHost(isRoomHost))
-    }
-}
-
-export default connect(mapStoreStateToProps, mapActionsToProps)(JoinMeeting)
+export default JoinMeeting

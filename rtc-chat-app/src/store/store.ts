@@ -1,9 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
-import reducer from './reducer'
+import rtcReducer from './rtcReducer'
 
 
-export const store = configureStore({
-    reducer: {
-        reducer
-    }
+const store = configureStore({
+    reducer: rtcReducer
+ 
 })
+
+export default store

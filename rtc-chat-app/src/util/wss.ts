@@ -1,5 +1,5 @@
 import io from 'socket.io-client'
-import { store } from '../store/store'
+import store from '../store/store'
 import { setRoomId } from '../store/actions'
 
 const SERVER = 'http://localhost:8888'
@@ -18,6 +18,7 @@ export const connectWithSocketIOServer = () => {
         console.log('got room-id from backend: ' + roomId)
         store.dispatch(setRoomId(roomId))
     })
+
 }
 
 export const createNewRoom = (identity: any) => {

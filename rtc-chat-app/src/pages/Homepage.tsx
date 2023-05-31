@@ -6,7 +6,7 @@ import JoinMeeting from '../components/meeting/JoinMeeting'
 import JoinOrHost from '../components/meeting/JoinOrHost'
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { setIdentity } from '../store/actions'
-import { store } from '../store/store'
+import store from '../store/store'
 import { ACTIONS } from '../store/actions'
 
 
@@ -20,21 +20,15 @@ const SBody = styled.div`
 
 const Homepage = () => {
 
-    const identity = useSelector((state: any) => state.reducer.identity)
-    const roomId = useSelector((state: any) => state.reducer.roomId)
+    /* const identity = useSelector((state: any) => state.reducer.identity)
+    const roomId = useSelector((state: any) => state.reducer.roomId) */
     const state = useSelector((state: any) => state)
-    //const dispatch = useDispatch()
-    //const { setIdentityAction, identity } = props
+/* 
+    console.log("home -- Identity: ", identity)*/
+    console.log("home -- State: ", state) 
+
     const [meetingType, setMeetingType] = useState<string>('')
     const [content, setContent] = useState<any>('')
-
-    //const { currentUser } = useAuth()
-
-   
-
-/*     useEffect(() => {
-        dispatch({ type:"SET_IDENTITY", identity: currentUser.uid})
-    },[]) */
 
     useEffect(() => {
         const createContent = () => {
@@ -60,12 +54,6 @@ const Homepage = () => {
         setContent(createContent())
     }, [meetingType])
 
-
-
-    console.log('home -- id: ', identity)
-    console.log('home -- roomId: ', roomId)
-    console.log('home -- state: ', state)
-
     return (
         <SBody>
             {content}
@@ -73,20 +61,5 @@ const Homepage = () => {
     )
 }
 
-/* const mapActionsToProps = (dispatch: any) => {
-    return {
-      setIdentityAction: (identity: any) => dispatch(setIdentity(identity)),
-    };
-  };
 
-const mapStoreStateToProps = (state: any) => {
-    console.log(state)
-    return {
-      roomId: state.reducer.roomId,
-      identity: state.reducer.identity,
-      isRoomHost: state.reducer.isRoomHost,
-      showOverlay: state.reducer.showOverlay
-    }
-  }
- */
 export default Homepage

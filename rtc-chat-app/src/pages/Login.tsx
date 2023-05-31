@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext'
 import { Link, useNavigate } from "react-router-dom"
 import { SFlexCol } from '../components/styled/container.styled'
 import { useDispatch } from 'react-redux'
+import { setIdentity } from '../store/actions'
 
 
 const SContainer = styled(SFlexCol)`
@@ -73,8 +74,7 @@ export default function Login() {
         login(emailRef.current.value, pwRef.current.value)
             .then((result: any) => {
                 result && console.log("Login successful")
-                console.log(result.user.uid)
-                dispatch({type: "SET_IDENTITY", identity: result.user.uid})
+                console.log('login',result.user.uid)
                 navigate("/")
             })
             .catch((err: any) => console.error(err))
