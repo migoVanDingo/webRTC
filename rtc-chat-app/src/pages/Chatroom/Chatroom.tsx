@@ -5,6 +5,7 @@ import { useLocation } from 'react-router-dom';
 import { SFlexCol } from '../../components/styled/container.styled'
 import * as WebRTCHandler from '../../util/webRtcHandler';
 import { connect } from 'react-redux';
+import { setIsRoomHost } from '../../store/actions';
 
 const SPageContainer = styled(SFlexCol)`
   background-color: #1f1f1f;  
@@ -60,24 +61,29 @@ const SPlayer = styled(ReactPlayer)`
 
 `
 
-const Chatroom = ({ roomId }: any) => {
-  const location = useLocation()
-  console.log(location.state)
+const Chatroom = (props: any) => {
 
-  const localVideoRef = useRef()
-
-
-  console.log("roomId: " + roomId)
+  const { roomId, identity, isRoomHost, showOverlay } = props
+  console.log('props: ', props)
+console.log("id: " , identity) 
   useEffect(() => {
 
     const getMediaStream = async () => {
-      WebRTCHandler.initRoomConnection(true, 'migo', '1234')
+      WebRTCHandler.initRoomConnection(true, identity, roomId)
 
     }
 
     getMediaStream()
 
   }, [])
+
+  useEffect(() => {
+    if(roomId !== null && roomId !== undefined){
+      console.log("roomID", roomId)
+    } else {
+      console.log("roomID is undefined")
+    }
+  }, [roomId])
 
   return (
     <SPageContainer>
@@ -102,9 +108,19 @@ const Chatroom = ({ roomId }: any) => {
 }
 
 const mapStoreStateToProps = (state: any) => {
+  console.log(state)
   return {
-    ...state
+    roomId: state.reducer.roomId,
+    identity: state.reducer.identity,
+    isRoomHost: state.reducer.isRoomHost,
+    showOverlay: state.reducer.showOverlay
   }
 }
+
+/* const mapActionsToProps = (dispatch: any) => {
+  return{
+    setIsRoomHostAction: (isRoomHost: any) => dispatch(setIsRoomHost(isRoomHost))
+  }
+} */
 
 export default connect(mapStoreStateToProps)(Chatroom)

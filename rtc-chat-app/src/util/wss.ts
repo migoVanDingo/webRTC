@@ -13,8 +13,9 @@ export const connectWithSocketIOServer = () => {
     })
 
     socket.on('room-id', (data: any) => {
-        console.log('got room-id from backend')
+        
         const { roomId } = data
+        console.log('got room-id from backend: ' + roomId)
         store.dispatch(setRoomId(roomId))
     })
 }

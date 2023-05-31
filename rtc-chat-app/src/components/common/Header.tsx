@@ -29,12 +29,19 @@ const SNav = styled.div`
 
 `
 
-const SLogo = styled.div`
+const SLogo = styled.a`
     position: absolute;
     font-size: 1.5rem;
     font-weight: 600;
     color: #00ffa6;
     flex: 1;
+    text-decoration: none;
+    cursor: pointer;
+
+    transition: all 0.5s ease-in;
+    &:hover{
+        color: #00aaff;
+    }
 
 `
 
@@ -86,7 +93,7 @@ export default function Header() {
     return (
         <SHeader>
             <SNav>
-                <SLogo>MigoChat</SLogo>
+                <SLogo href="/">MigoChat</SLogo>
                 <SList>
                     <SItemLinkWrapper href="/Login"><SItem>Login</SItem></SItemLinkWrapper>
                     <SItemLinkWrapper href="/Signup"><SItem>Sign Up</SItem></SItemLinkWrapper>
