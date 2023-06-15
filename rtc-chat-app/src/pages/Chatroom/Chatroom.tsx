@@ -6,6 +6,8 @@ import { SFlexCol } from "../../components/styled/container.styled";
 import * as WebRTCHandler from "../../util/webRtcHandler";
 import { useSelector } from "react-redux";
 import { setIsRoomHost } from "../../store/actions";
+import { doc } from "firebase/firestore";
+import useUserMedia from "../../hooks/rtc/useUserMedia";
 
 const SPageContainer = styled(SFlexCol)`
   background-color: #1f1f1f;
@@ -53,28 +55,34 @@ const SVideoContainer = styled.div`
   }
 `;
 
-const SPlayer = styled(ReactPlayer)`
+const SPlayer = styled.video`
   width: 100%;
   height: 100%;
 `;
 
 const Chatroom = () => {
-  /* const identity = useSelector((state: any) => state.reducer.identity);
-  const roomId = useSelector((state: any) => state.roomId); */
-  const state = useSelector((state: any) => state);
-
-/*   console.log("chatroom identity: ", identity);
-  console.log("chatroom roomId: ", roomId);*/
-  console.log("chatroom state: ", state); 
   
-  /* useEffect(() => {
-    const getMediaStream = async () => {
-      await WebRTCHandler.initRoomConnection(true, identity, roomId);
-    };
 
-    getMediaStream();
-  }, []); */
+  const videoRef = useRef<HTMLVideoElement>()
 
+
+  const mediaStreamConstraints = {
+    video: true,
+    audio: true
+  }
+
+  const mediaStream = useUserMedia(mediaStreamConstraints)
+  if (mediaStream && videoRef.current && !videoRef.current.srcObject) {
+    videoRef.current.srcObject = mediaStream;
+  }
+
+  function handleCanPlay() {
+    if(videoRef.current){
+      videoRef.current.play();
+    }
+    
+  }
+ 
 
   return (
     <SPageContainer>
@@ -82,11 +90,11 @@ const Chatroom = () => {
 
       <SContainer>
         <SVideoContainer>
-          <SVideoContainer className="self-view">
-            <SPlayer height="100%" width="100%" url={""} />
-          </SVideoContainer>
+          {/* <SVideoContainer className="self-view">
+            <SPlayer height="100%" width="100%" ref={videoRef} onCanPlay={handleCanPlay} autoPlay playsInline />
+          </SVideoContainer> */}
 
-          <SPlayer height="100%" width="100%" url={""} />
+          <SPlayer ref={videoRef} onCanPlay={handleCanPlay}  />
         </SVideoContainer>
       </SContainer>
 
