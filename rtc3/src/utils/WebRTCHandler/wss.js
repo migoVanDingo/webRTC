@@ -32,9 +32,10 @@ export const connectWithSocketServer = () => {
 
     socket.on('conn-prepare', (data) => {
         const { connUserSocketId } = data
+        console.log('connUserSocketID: ', connUserSocketId)
         WebRTCHandler.prepareNewPeerConnection(connUserSocketId, false)
 
-        socket.emit('conn-init', { connUserSocketId })
+        socket.emit('conn-init', { connUserSocketId: connUserSocketId })
     })
 
     socket.on('conn-signal', (data) => {

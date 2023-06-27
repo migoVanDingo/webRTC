@@ -39,7 +39,7 @@ const NewMessageInput = () => {
           onChange={handleChange}
           onKeyDown={handleEnterSend}
           value={message}
-          placeHolder={"Send a Message"}
+          placeholder={"Send a Message"}
         />
         <SButton onClick={sendMessage}>Send</SButton>
       </SModuleContainer>

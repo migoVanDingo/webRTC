@@ -4,7 +4,7 @@ import * as wss from "./wss";
 import Peer from "simple-peer";
 
 const defaultConstraints = {
-  audio: false,
+  audio: true,
   video: true,
 };
 
@@ -53,9 +53,7 @@ const getConfiguration = () => {
   };
 };
 
-
-const messengerChannel = 'messenger'
-
+const messengerChannel = "messenger";
 
 export const prepareNewPeerConnection = (connUserSocketId, isInitiator) => {
   const configuration = getConfiguration();
@@ -66,8 +64,10 @@ export const prepareNewPeerConnection = (connUserSocketId, isInitiator) => {
     initiator: isInitiator,
     config: configuration,
     stream: localStream,
-    channelName: messengerChannel
+    channelName: messengerChannel,
   });
+
+  console.log("Peer: ",peers[connUserSocketId])
 
   peers[connUserSocketId].on("signal", (data) => {
     const signalData = {
@@ -78,8 +78,6 @@ export const prepareNewPeerConnection = (connUserSocketId, isInitiator) => {
     wss.signalPeerData(signalData);
   });
 
-  
-
   peers[connUserSocketId].on("stream", (stream) => {
     console.log("new stream came");
 
@@ -87,11 +85,14 @@ export const prepareNewPeerConnection = (connUserSocketId, isInitiator) => {
     streams = [...streams, stream];
   });
 
-
-  peers[connUserSocketId].on('data', (data) => {
-    const messageData = JSON.parse(data)
-    appendNewMessage(messageData)
-  })
+  try {
+    peers[connUserSocketId].on("data", (data) => {
+      const messageData = JSON.parse(data);
+      appendNewMessage(messageData);
+    });
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export const handleSignalData = (data) => {
@@ -99,24 +100,23 @@ export const handleSignalData = (data) => {
 };
 
 export const removePeerConnection = (data) => {
-  const { socketId } = data
-  const videoContainer = document.getElementById(socketId)
+  const { socketId } = data;
+  const videoContainer = document.getElementById(socketId);
 
-  if(videoContainer){
-    const tracks = videoContainer.srcObject.getTracks()
+  if (videoContainer) {
+    const tracks = videoContainer.srcObject.getTracks();
 
-    tracks.forEach(t => t.stop())
-
+    tracks.forEach((t) => t.stop());
   }
 
-  videoContainer.srcObject = null
-  videoContainer.parentNode.removeChild(videoContainer)
+  videoContainer.srcObject = null;
+  videoContainer.parentNode.removeChild(videoContainer);
 
-  if(peers[socketId]){
-    peers[socketId].destroy()
+  if (peers[socketId]) {
+    peers[socketId].destroy();
   }
-  delete peers[socketId]
-}
+  delete peers[socketId];
+};
 
 // UI
 const showLocalVideoPreview = (stream) => {
@@ -159,30 +159,27 @@ const createVideoElement = (stream) => {
 };
 
 const appendNewMessage = (messageData) => {
-  const messages = store.getState().messages
-  store.dispatch(setMessages([...messages, messageData]))
-}
+  const messages = store.getState().messages;
+  store.dispatch(setMessages([...messages, messageData]));
+};
 
 export const sendMessageUsingDataChannel = (messageContent) => {
-  const username = store.getState().username
+  const username = store.getState().username;
   const localMessageData = {
     content: messageContent,
     username,
-    messageCreatedByMe: true
-  }
+    messageCreatedByMe: true,
+  };
 
-  appendNewMessage(localMessageData)
-
+  appendNewMessage(localMessageData);
 
   const messageData = {
     content: messageContent,
     username,
-    
-  }
+  };
 
-  const messageDataStr = JSON.stringify(messageData)
-  for(let socketId in peers){
-    peers[socketId].send(messageDataStr)
+  const messageDataStr = JSON.stringify(messageData);
+  for (let socketId in peers) {
+    peers[socketId].send(messageDataStr);
   }
-  
-}
+};
