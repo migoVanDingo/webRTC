@@ -3,7 +3,7 @@ import { store } from '../../app/store'
 import { setRoomId, setParticipants } from '../../app/actions'
 import * as WebRTCHandler from './webRtcHandler'
 
-const SERVER = 'http://localhost:8888'
+const SERVER = 'http://54.175.165.161:8888'
 
 let socket = null
 
