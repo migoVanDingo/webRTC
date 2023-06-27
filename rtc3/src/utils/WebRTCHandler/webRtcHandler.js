@@ -16,9 +16,7 @@ export const getLocalPreviewAndInitConnection = (
   userId,
   roomId = null
 ) => {
-  navigator.mediaDevices
-    .getUserMedia(defaultConstraints)
-    .then((stream) => {
+  navigator.mediaDevices.getUserMedia(defaultConstraints).then((stream) => {
       if (localStream === null) {
         console.log("Successfully recieved local stream");
         localStream = stream;
