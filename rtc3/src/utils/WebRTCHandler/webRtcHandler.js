@@ -4,7 +4,7 @@ import * as wss from "./wss";
 import Peer from "simple-peer";
 
 const defaultConstraints = {
-  audio: true,
+  audio: false,
   video: true,
 };
 
