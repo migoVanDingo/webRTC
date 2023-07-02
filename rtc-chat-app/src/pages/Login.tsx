@@ -75,7 +75,8 @@ export default function Login() {
             .then((result: any) => {
                 result && console.log("Login successful")
                 console.log('login',result.user.uid)
-                navigate("/")
+                dispatch(setIdentity(result.user.uid))
+                navigate("/Chatroom")
             })
             .catch((err: any) => console.error(err))
 
