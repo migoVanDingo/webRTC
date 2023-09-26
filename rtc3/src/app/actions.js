@@ -6,8 +6,34 @@ export const ACTIONS = {
     SET_USERNAME: "SET_USERNAME",
     SET_LOADING: "SET_LOADING",
     SET_PARTICIPANTS: "SET_PARTICIPANTS",
-    SET_MESSAGES: "SET_MESSAGES"
+    SET_MESSAGES: "SET_MESSAGES",
+
+    SET_CURRENT_CHAT_CHANNEL_NAME: "SET_CURRENT_CHAT_CHANNEL_NAME",
+    SET_CURRENT_CHAT_CHANNEL_ID: "SET_CURRENT_CHAT_CHANNEL_ID",
+    SET_CHANNEL_MEMBERS: "SET_CHANNEL_MEMBERS",
+    SET_CHANNEL_MESSAGES: "SET_CHANNEL_MESSAGES",
+    SET_CURRENT_USER_CHAT_ID: "SET_CURRENT_USER_CHAT_ID",
+    SET_CURRENT_USER_EMAIL:"SET_CURRENT_USER_EMAIL"
 }
+
+
+export const setCurrentChatChannelName = (channelName) => {
+    return {
+        type: ACTIONS.SET_CURRENT_CHAT_CHANNEL_NAME,
+        channelName
+
+    }
+}
+
+export const setCurrentChatChannelId = (channelId) => {
+    return {
+        type: ACTIONS.SET_CURRENT_CHAT_CHANNEL_ID,
+        channelId
+
+    }
+}
+
+
 
 export const setIsRoomHost = (isRoomHost) => {
     return {
@@ -62,6 +88,34 @@ export const setMessages = (messages) => {
     return {
         type: ACTIONS.SET_MESSAGES,
         messages
+    }
+}
+
+export const setChannelMembers = (channelMembers) => {
+    return {
+        type: ACTIONS.SET_CHANNEL_MEMBERS,
+        channelMembers
+    }
+}
+
+export const setChannelMessages = (channelMessages) => {
+    return {
+        type: ACTIONS.SET_CHANNEL_MESSAGES,
+        channelMessages
+    }
+}
+
+export const setCurrentUserChatId = (currentUserChatId) => {
+    return {
+        type: ACTIONS.SET_CURRENT_USER_CHAT_ID,
+        currentUserChatId
+    }
+}
+
+export const setCurrentUserEmail = (currentUserEmail) => {
+    return {
+        type: ACTIONS.SET_CURRENT_USER_EMAIL,
+        currentUserEmail
     }
 }
 

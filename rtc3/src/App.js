@@ -5,6 +5,7 @@ import RoomPage from "./RoomPage/RoomPage";
 import IntroductionPage from "./IntroductionPage/IntroductionPage";
 import styled from "styled-components";
 import * as wss from "./utils/WebRTCHandler/wss";
+import ChatPage from "./ChatPage/ChatPage";
 
 const SBody = styled.div`
   display: flex;
@@ -27,7 +28,7 @@ const SBody = styled.div`
 function App() {
 
   useEffect(() => {
-    wss.connectWithSocketServer()
+    //wss.connectWithSocketServer()
   }, [])
 
   return (
@@ -39,6 +40,8 @@ function App() {
           <Route path="/room" element={<RoomPage />} />
 
           <Route path="/" element={<IntroductionPage />} />
+
+          <Route path="/chat" element={<ChatPage />}/>
         </Routes>
       </SBody>
     </Router>

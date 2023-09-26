@@ -5,16 +5,20 @@ const twilio = require('twilio')
 const ENV = require('./config')
 const RoomController = require("./api/room/controller/roomRoutes")
 const RoomHandler = require('./api/room/handler/roomHandler')
+const TeamChatController = require("./api/team-chat/controller/TeamChatController")
+const bodyParser = require('body-parser');
 
 const app = express()
 const PORT = ENV.PORT || 8888
 
 //Middleware
 app.use(cors({origin: "*"}))
+app.use(bodyParser.json());
 
 
 //API
 RoomController(app)
+TeamChatController(app)
 
 
 //Init

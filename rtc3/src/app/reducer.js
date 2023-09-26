@@ -8,7 +8,14 @@ const initState = {
     username: '',
     isLoading: true,
     participants: [],
-    messages:[]
+    messages:[],
+
+    channelName: '',
+    channelId: '',
+    channelMembers: [],
+    channelMessages: [],
+    currentUserChatId: '',
+    currentUserEmail: ''
 
 }
 
@@ -60,6 +67,45 @@ const reducer = (state = initState, action) => {
             return {
                 ...state,
                 messages: action.messages
+            }
+
+
+
+        //CHAT
+        case ACTIONS.SET_CURRENT_CHAT_CHANNEL_NAME:
+            return {
+                ...state,
+                channelName: action.channelName
+            }
+
+        case ACTIONS.SET_CURRENT_CHAT_CHANNEL_ID:
+            return {
+                ...state,
+                channelId: action.channelId
+            }
+
+        case ACTIONS.SET_CHANNEL_MEMBERS:
+            return {
+                ...state,
+                channelMembers: action.channelMembers
+            }
+
+        case ACTIONS.SET_CHANNEL_MESSAGES:
+            return {
+                ...state,
+                channelMessages: action.channelMessages
+            }
+
+        case ACTIONS.SET_CURRENT_USER_CHAT_ID:
+            return {
+                ...state,
+                currentUserChatId: action.currentUserChatId
+            }
+
+        case ACTIONS.SET_CURRENT_USER_EMAIL:
+            return {
+                ...state,
+                currentUserEmail: action.currentUserEmail
             }
 
         default:

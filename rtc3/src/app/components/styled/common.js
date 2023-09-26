@@ -5,6 +5,7 @@ export const SFlexCol = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    box-sizing: border-box;
 `
 
 export const SFlexRow = styled.div`
