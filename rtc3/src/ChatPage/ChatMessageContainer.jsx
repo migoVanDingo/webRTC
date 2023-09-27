@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { SFlexCol } from "../app/components/styled/common";
 import { connect } from "react-redux";
@@ -20,7 +20,13 @@ const Message = ({ author, content, sameAuthor, messageCreatedByMe }) => {
   )
 }
 
-const ChatMessageContainer = ({ channelMessages, currentUserChatId }) => {
+const ChatMessageContainer = ({ channelMessages, currentUserChatId, signal }) => {
+
+  const [trigger, setTrigger] = useState(signal)
+
+  useEffect(() => {
+    console.log('updated: ', channelMessages)
+  }, [trigger])
   
   return (
     <SContainer>
@@ -60,6 +66,8 @@ const SContainer = styled.div`
   padding: 10px;
   padding-right: 30px;
   gap: 10px;
+
+  
 `;
 
 const SMessageBox = styled.div`

@@ -20,6 +20,7 @@ const SBody = styled.div`
   height: 100vh;
   //overflow-x: hidden;
   overflow-y: scroll;
+  font-family: Helvetica, sans-serif;
   
 
 

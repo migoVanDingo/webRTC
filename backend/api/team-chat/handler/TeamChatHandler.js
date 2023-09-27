@@ -13,7 +13,6 @@ const createZoomChannel = async (req, res) => {
     try {
         const userId = req.params['userId']
 
-
         const data = {
             channel_settings: {
                 add_member_permissions: 1,
@@ -26,7 +25,6 @@ const createZoomChannel = async (req, res) => {
                 {
                     email: 'echo.test1.abq@gmail.com',
                 },
-
 
             ]
             ,
@@ -180,14 +178,11 @@ const getChannelMessages = async (req, res) => {
         response.data.messages.sort(sortByDateAsc)
 
         
-
-
-
         res.status(200).send(response.data)
         
     } catch (error) {
         console.error('channelMessages() Error: ', error)
-        res.status(404).send('channelMessages() Error', error)
+
     }
 }
 

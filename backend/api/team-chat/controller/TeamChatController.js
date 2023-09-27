@@ -25,7 +25,7 @@ const routes = (app) => {
 
     router.post('/test', TeamChatHandler.test)
 
-    
+
 
     app.use(router)
 }

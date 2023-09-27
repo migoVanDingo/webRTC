@@ -57,6 +57,12 @@ io.on('connection', (socket) => {
     socket.on('conn-init', (data) => {
         RoomHandler.initializeConnectionHandler(data, socket)
     })
+    //////////////////////////////////
+
+    socket.on('chat-message' , (data) => {
+        io.emit('chat-message', data)
+    })
+
 })
 
 

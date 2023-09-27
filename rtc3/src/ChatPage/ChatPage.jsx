@@ -16,7 +16,18 @@ const ChatPage = (props) => {
   //const { channelId } = props
   const [cid, setCid] = useState('')
   const [channels, setChannels] = useState([])
+  const [getMessageSwitch, setGetMessageSwitch] = useState(false)
+  const [sendSignal, setSendSignal] = useState(false)
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    
+    if(getMessageSwitch === true){
+      console.log("getChannelMessages")
+      setInterval(() => getChannelMessages(cid), 500)
+    }
+      
+  }, [getMessageSwitch])
 
   useEffect(() => {
 
@@ -33,7 +44,7 @@ const ChatPage = (props) => {
   }, [cid])
 
   const getChannelMessages = (channelId) => {
-    console.log('here')
+
     EndpointUrl.getChannelMessages("4CHusvx9RAWL1oyhSoY8nw", channelId)
     .then(result => {
       console.log("ChatInputWindow.jsx -- getChannelMessages(): ", result)
@@ -56,6 +67,8 @@ const ChatPage = (props) => {
         console.log('cid: ', cid)
         getChannelMessages(result.data.channels[0].id)
         getChannelMembers(result.data.channels[0].id)
+
+        setGetMessageSwitch(true)
         
       })
       .catch(err => console.error('dam: ', console.error(err)))
@@ -115,7 +128,7 @@ const ChatPage = (props) => {
       </SChatContainer>
       <SChatContainer>
         <SChatLabel>Chat</SChatLabel>
-        <ChatMessageContainer />
+        <ChatMessageContainer signal={sendSignal} />
         <ChatInputWindow />
 
       </SChatContainer>
@@ -155,13 +168,15 @@ const SChatContainer = styled.div`
 `
 
 const SChatLabel = styled.div`
-  font-size: 1.2rem;
-  font-weight: 200;
+  
   border: 1px solid #e7e7e7;
   padding: 10px 25px;
   border-right: none;
   border-left: none;
   border-top: none;
-  color: #606060;
+  color: #9a9a9a;
+  font-family: Helvetica, sans-serif;
+  font-size: 1rem;
+  font-weight: 100;
   
 `

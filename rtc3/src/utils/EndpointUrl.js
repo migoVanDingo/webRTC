@@ -59,9 +59,14 @@ export class EndpointUrl {
     }
 
     static async getChannelMessages(userId, channelId){
-        console.log("aqui")
+        
         const url = 'http://localhost:8888/chat/users/'+userId+'/messages?to_channel='+channelId
-        return await Requests.doGet(url)
+
+        if(channelId !== null){
+            console.log("aqui: ", channelId)
+            return await Requests.doGet(url)
+        }
+            
     }
 
 
